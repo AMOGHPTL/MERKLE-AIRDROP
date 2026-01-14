@@ -6,8 +6,8 @@ import {Script} from "forge-std/Script.sol";
 import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 import {MerkleAirdrop} from "../src/MerkleAirdrop.sol";
 
-contract Interact is Script {
-    error Interact__SignatureLengthInvalid();
+contract ClaimAirdrop is Script {
+    error ClaimAirdrop__SignatureLengthInvalid();
 
     address CLAIMING_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     uint256 CLAIMING_AMOUNT = 25 * 1e18;
@@ -16,7 +16,7 @@ contract Interact is Script {
         bytes32(0xe5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576)
     ];
     bytes private SIGNATURE =
-        hex"78ab4a9e41000e9c001b6857b390f1106a4e8524754413345896ddc1833a66ef6fc547f9d0b0a281994079f36a75e3d9567cb3f18bb18f703bd3863b6b71ff601b";
+        hex"cc887fdfbb9b61775e32d76644824641a12f20cf8a63f7efaae602894291938f46820d9880be3e779674115c51603aeab44b021f921a3d484ae5ea1c1ade542f1c";
 
     function claimAirdrop(address airdrop) public {
         vm.startBroadcast();
@@ -32,7 +32,7 @@ contract Interact is Script {
 
     function splitSignature(bytes memory sig) public pure returns (uint8 v, bytes32 r, bytes32 s) {
         if (sig.length != 65) {
-            revert Interact__SignatureLengthInvalid();
+            revert ClaimAirdrop__SignatureLengthInvalid();
         }
         assembly {
             // first 32 bytes, after the length prefix
@@ -44,3 +44,5 @@ contract Interact is Script {
         }
     }
 }
+
+// 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
